@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="CSS/register.css">
+</head>
+
+<body>
+    <div class="logo">
+        <img src="Images/logo.png" alt="">
+    </div>
+    <h2>Create Account</h2>
+    <div class="Registration_Form">
+        <form id="registerForm">
+            <input type="text" id="regName" class="inputs" placeholder="Enter Full Name" required>
+            <input type="email" id="regEmail" class="inputs" placeholder="Enter Email" required>
+            <input type="Password" id="regPassword" class="inputs" placeholder="Enter Password" required>
+            <input type="text" id="regContact" class="inputs" placeholder="Enter Your Number" pattern="[0-9]" required>
+            <input type="text" id="regEmerContact" class="inputs" placeholder="Emergency Contact Number" pattern="[0-9]"
+                required>
+        </form>
+        <div class="reg_btn">
+            <button>Register</button>
+        </div>
+        <div class="login_link">Already have an account? <a href="Login.html">Login here</a></div>
+    </div>
+    <script src="Java script/auth.js"></script>
+</body>
+
+</html>
