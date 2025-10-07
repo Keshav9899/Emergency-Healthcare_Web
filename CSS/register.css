@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Martel+Sans:wght@200;300;400;600;700;800;900&family=Poppins:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f2e2d7;
+}
+
+div .logo {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
+.logo img {
+    width: 158px;
+    height: 158px;
+    margin: 13px 29px;
+    padding: 23px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 32px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.Registration_Form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    margin: -10px 0px;
+    padding: 10px 0px;
+}
+
+#registerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 25px;
+    width: 52%;
+    height: 70%
+}
+
+form .inputs {
+    width: 55%;
+    height: 48%;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    background-color: white;
+    border-radius: 17px;
+    padding: 7px 14px;
+
+}
+
+.reg_btn button {
+    border: none;
+    color: #ff0000;
+    background: none;
+    font-size: 25px;
+    font-family: 'Poppins';
+    font-weight: 700;
+}
+.reg_btn button:hover {
+    cursor:pointer;
+    color:rgb(220, 115, 115)
+}
+
+.login_link {
+     font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.login_link a {
+    text-decoration: none;
+    color:#ff0000;
+}
+.login_link a:hover {
+    cursor: pointer;
+    color:#ff0000;
+}
