@@ -56,3 +56,33 @@ h2 {
     border-radius: 17px;
     padding: 7px 14px;
 }
+
+.log_btn button {
+    border: none;
+    color: #ff0000;
+    background: none;
+    font-size: 25px;
+    font-family: 'Poppins';
+    font-weight: 700;
+}
+
+.log_btn button:hover {
+    cursor: pointer;
+    color: rgb(220, 115, 115);
+}
+
+.registerLink {
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+.registerLink a {
+    text-decoration: none;
+    color:#ff0000;
+    font-size: 25px;
+}
+.registerLink a:hover {
+    cursor: pointer;
+    color:rgb(220, 115, 115);
+}
