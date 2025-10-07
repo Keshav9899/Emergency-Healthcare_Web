@@ -74,11 +74,11 @@ form .inputs {
 }
 .reg_btn button:hover {
     cursor:pointer;
-    color:rgb(220, 115, 115)
+    color:rgb(220, 115, 115);
 }
 
 .login_link {
-     font-size: 20px;
+    font-size: 20px;
     font-family: "Poppins", sans-serif;
     font-weight: 700;
     font-style: normal;
@@ -87,6 +87,7 @@ form .inputs {
 .login_link a {
     text-decoration: none;
     color:#ff0000;
+    font-size: 25px;
 }
 .login_link a:hover {
     cursor: pointer;
