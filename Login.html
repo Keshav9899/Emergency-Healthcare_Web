@@ -28,8 +28,8 @@
                 <input type="text" name="Name" placeholder="Name" required>
                 <input type="email" name="Email" placeholder="Email" required>
                 <input type="password" name="Password" placeholder="Password" required>
-                <input type="text" name="contact" placeholder="Contact Number" pattern="[0-9]" required>
-                <input type="text" name="contact" placeholder="Emergency Contact Number" pattern="[0-9]" required>
+                <input type="text" name="contact" placeholder="Contact Number" pattern="(\+91)?[0-9]{10}" required>
+                <input type="tel" name="contact" pattern="(\+91)?[0-9]{10}" placeholder="Emergency Contact Number" required>
                 <button type="sumbit" name="Register">Register</button>
                 <p>Already have an account? <a href="#" onclick="showform('login-form')">Login</a></p>
             </form>
