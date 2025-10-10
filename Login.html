@@ -13,21 +13,17 @@
         <img src="Images/logo.png" alt="logo">
     </div>
     <div class="container">
-        <h2>Login to Your Account</h2>
-        <form id="loginForm">
-            <input type="email" id="loginEmail" placeholder="Enter Email" required>
-            <input type="password" id="loginPassword" placeholder="Enter Password" required>
-            <span id="Showpassword">
-                <input type="checkbox" id="showpassword">
-                <span>Show Password</span>
-            </span>
-        </form>
-        <div class="log_btn">
-            <button>Login</button>
+        <div class="form-box active" id="login-form">
+            <form action="">
+                <h2>Login to Your Account</h2>
+                <input type="email" id="loginEmail" placeholder="Enter Email" required>
+                <input type="password" id="loginPassword" placeholder="Enter Password" required>
+                <button type="sumbit" name="Login">Login</button>
+                <p>Don't have an account? <a href="#" onclick="showform('register-form')">Register</a></p>
+            </form>
         </div>
-        <div class="registerLink">Don't have account? <a href="Register.html">Register here</a></div>
-    </div>
-    <script src="Java script/auth.js"></script>
+
+        <script src="Java script/auth.js"></script>
 </body>
 
 </html>
