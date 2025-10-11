@@ -3,12 +3,12 @@
 /* for responsiveness*/
 
 @media (max-width: 640px) {
-    #userpill {
+    #user-pill {
         padding: 0 16px;
     }
 
-    #profilebtn.pill,
-    #logoutbtn {
+    #profileBtn.pill,
+    #logoutBtn {
         width: 100%;
         max-width: 360px;
         margin: 8px auto 0;
