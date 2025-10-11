@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="CSS/login.css">
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-auth-compat.js"></script>
 </head>
 
 <body>
@@ -16,9 +19,9 @@
         <div class="form-box active" id="login-form">
             <form action="">
                 <h2>Login</h2>
-                <input type="email" id="loginEmail" placeholder="Enter Email" required>
-                <input type="password" id="loginPassword" placeholder="Enter Password" required>
-                <button type="sumbit" name="Login">Login</button>
+                <input type="email" id="LoginEmail" placeholder="Enter Email" required>
+                <input type="password" id="LoginPassword" placeholder="Enter Password" required>
+                <button type="sumbit" name="Login" onclick="login()">Login</button>
                 <p>Don't have an account? <a href="#" onclick="showform('register-form')">Register</a></p>
             </form>
         </div>
@@ -29,7 +32,8 @@
                 <input type="email" name="Email" placeholder="Email" required>
                 <input type="password" name="Password" placeholder="Password" required>
                 <input type="text" name="contact" placeholder="Contact Number" pattern="(\+91)?[0-9]{10}" required>
-                <input type="tel" name="contact" pattern="(\+91)?[0-9]{10}" placeholder="Emergency Contact Number" required>
+                <input type="tel" name="contact" pattern="(\+91)?[0-9]{10}" placeholder="Emergency Contact Number"
+                    required>
                 <button type="sumbit" name="Register">Register</button>
                 <p>Already have an account? <a href="#" onclick="showform('login-form')">Login</a></p>
             </form>
