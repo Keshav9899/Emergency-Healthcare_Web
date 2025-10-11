@@ -19,37 +19,35 @@ const db = firebase.firestore();
 
 // Register function
 const register = () => {
-  const name = document.getElementById("Name").value;
-  const email = document.getElementById("Email").value;
-  const password = document.getElementById("Password").value;
-  const contact = document.getElementById("Pcontact").value;
-  const emergencyContact = document.getElementById("Econtact").value;
+  const name = document.querySelector('input[name="Name"]').value;
+  const email = document.querySelector('input[name="Email"]').value;
+  const password = document.querySelector('input[name="Password"]').value;
+  const contact = document.querySelector('input[name="contact"]').value;
+  const emergencyContact = document.querySelectorAll('input[name="contact"]')[1].value;
 
-  if (!name || !email || !password || !contact || !emergencyContact) {
-    alert("Please fill all fields!");
-    return;
-  }
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
 
-  auth.createUserWithEmailAndPassword(email, password)
-    .then((result) => {
-      const user = result.user;
-      return db.collection("users").doc(user.uid).set({
+      // Store user data in Firestore
+      db.collection("users").doc(user.uid).set({
         name: name,
         email: email,
         contact: contact,
         emergencyContact: emergencyContact,
-        createdAt: new Date().toISOString()
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        alert("Registration successful!");
+        window.location.href = "login.html";
       });
     })
-      .then(()=>{
-        alert("You are registered successfully!");
-        window.location.href = "login.html";
-
-      })
     .catch((error) => {
       alert(error.message);
+      console.log(error);
     });
 };
+
 
 // Login function
 const login = () => {
