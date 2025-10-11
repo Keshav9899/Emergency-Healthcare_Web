@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emergency-Heathcare_Web</title>
     <link rel="stylesheet" href="CSS/style.css">
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-auth-compat.js"></script>
 </head>
 
 <body>
@@ -15,17 +18,28 @@
         </div>
         <nav>
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/">Hospitals</a></li>
-                <li><a href="/">First Aid</a></li>
-                <li><a href="Login.html">Login</a></li>
-                <li><a href="Register.html">Register</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Hospital.html">Hospitals</a></li>
+                <li><a href="first_aid.html">First Aid</a></li>
+                <li><a href="Login.html" class="login">Login</a></li>
+                <li><a href="Register.html" class="register">Register</a></li>
             </ul>
         </nav>
     </header>
-    <main>
-        <button id="sos">SOS</button>
-    </main>
+    <div id="sos-area">
+        <button id="sosBtn" class="sos">SOS</button>
+    </div>
+
+    <!-- hidden until looged in  -->
+
+    <div id="user-pill">
+        <button id="profileBtn" class="pill">
+            <span id="pillName">User</span>
+            <span id="pillEmail">email@example.com</span>
+        </button>
+        <button id="logoutBtn">Logout</button>
+    </div>
+    <script src="JavaScript/auth.js"></script>
 </body>
 
 </html>
