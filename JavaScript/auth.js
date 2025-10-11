@@ -15,7 +15,6 @@ const firebaseApp = firebase.initializeApp({
 const db = firebaseApp.firestore();
 const auth = firebaseApp.auth();
 
-
 // ✅ Register Function (Authentication + Firestore)
 const register = () => {
   const name = document.getElementById("name").value;
@@ -38,7 +37,7 @@ const register = () => {
     })
     .then(() => {
       alert("Registration successful!");
-      window.location.href = "login.html";
+      window.location.href = "index.html";
     })
     .catch((error) => {
       alert(error.message);
