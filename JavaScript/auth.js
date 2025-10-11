@@ -18,16 +18,15 @@ const auth = firebaseApp.auth();
 
 // ✅ Register Function (Authentication + Firestore)
 const register = () => {
-  const name = document.querySelector('input[name="name"]').value;
-  const email = document.querySelector('input[name="email"]').value;
-  const password = document.querySelector('input[name="password"]').value;
-  const contact = document.querySelector('input[name="contact"]')[0].value;
-  const emergencyContact = document.querySelector('input[name="emergencyContact"]')[1].value;
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const contact = document.getElementById("contact").value;
+  const emergencyContact = document.getElementById("emergencyContact").value;
 
   auth.createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      // Store user data in Firestore
       return db.collection("users").doc(user.uid).set({
         name: name,
         email: email,
@@ -46,7 +45,6 @@ const register = () => {
     });
 };
 
-
 // ✅ Login Function
 const login = () => {
   const email = document.getElementById("loginEmail").value;
@@ -61,3 +59,13 @@ const login = () => {
       alert(error.message);
     });
 };
+
+document.addEventListener('DOMContentLoaded', function () {
+  const registerForm = document.getElementById('register-form');
+  if (registerForm) {
+    registerForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      register();
+    });
+  }
+});
