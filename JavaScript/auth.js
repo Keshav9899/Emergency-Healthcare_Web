@@ -21,8 +21,8 @@ const register = () => {
   const name = document.querySelector('input[name="name"]').value;
   const email = document.querySelector('input[name="email"]').value;
   const password = document.querySelector('input[name="password"]').value;
-  const contact = document.querySelectorAll('input[name="contact"]')[0].value;
-  const emergencyContact = document.querySelectorAll('input[name="emergencyContact"]')[1].value;
+  const contact = document.querySelector('input[name="contact"]')[0].value;
+  const emergencyContact = document.querySelector('input[name="emergencyContact"]')[1].value;
 
   auth.createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
