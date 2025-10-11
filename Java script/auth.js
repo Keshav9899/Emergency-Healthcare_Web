@@ -31,6 +31,7 @@ const register = () => {
       return db.collection("users").doc(user.uid).set({
         name: name,
         email: email,
+        password: password,
         contact: contact,
         emergencyContact: emergencyContact,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
