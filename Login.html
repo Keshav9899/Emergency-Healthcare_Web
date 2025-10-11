@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="CSS/login.css">
-    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
 </head>
 
 <body>
@@ -21,7 +22,7 @@
                 <h2>Login</h2>
                 <input type="email" id="LoginEmail" placeholder="Enter Email" required>
                 <input type="password" id="LoginPassword" placeholder="Enter Password" required>
-                <button type="sumbit" name="Login" onclick="login()">Login</button>
+                <button type="sumbit" onclick="login()">Login</button>
                 <p>Don't have an account? <a href="#" onclick="showform('register-form')">Register</a></p>
             </form>
         </div>
@@ -40,7 +41,7 @@
         </div>
     </div>
 
-    <script src="Java script/auth.js"></script>
+    <script src="JavaScript/auth.js"></script>
 </body>
 
 </html>
