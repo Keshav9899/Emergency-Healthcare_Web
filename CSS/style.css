@@ -1,5 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Martel+Sans:wght@200;300;400;600;700;800;900&family=Poppins:wght@400;600;700&display=swap');
 
+/* for responsiveness*/
+
+@media (max-width: 640px) {
+    #userpill {
+        padding: 0 16px;
+    }
+
+    #profilebtn.pill,
+    #logoutbtn {
+        width: 100%;
+        max-width: 360px;
+        margin: 8px auto 0;
+        display: block;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -42,17 +58,20 @@ nav ul li a {
 
 nav ul li a:hover {
     color: #6a8ccb;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-main {
+#sos-area {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 70vh;
+    text-align: center;
+   margin-top: 10px;
 }
 
-#sos {
+.sos {
+
     background: red;
     color: white;
     font-size: 2rem;
@@ -64,8 +83,52 @@ main {
     cursor: pointer;
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
     transition: transform 0.2s;
+  
 }
 
 #sos:hover {
     transform: scale(1.1);
+}
+
+#user-pill {
+    display: none;
+    text-align: center;
+    margin-top: 24px;
+    font-family: "Poppins", sans-serif;
+}
+
+#profileBtn.pill {
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: none;
+    background: #1a3d7c;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 6px 16px rgba(26, 61, 124, 0.25);
+    transition: transform 0.15s ease, background 0.2s ease;
+}
+
+#profileBtn.pill:hover {
+    transform: translateY(-1px);
+    background: #284d9a;
+
+}
+
+#logoutBtn {
+    margin-left: 12px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid #d6d6d6;
+    background: #ffffff;
+    color: #1a3d7c;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+#logoutBtn:hover {
+    background: #f3f6fb;
+    border-color: #b8c7ea;
+    color: #16356a;
 }
