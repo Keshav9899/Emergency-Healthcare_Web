@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="CSS/register.css">
-<script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-auth-compat.js"></script>
 
 </head>
 
@@ -28,7 +28,7 @@
                 <input type="tel" id="emergencyContact" pattern="(\+91)?[0-9]{10}"
                     placeholder="Emergency Contact Number" required>
 
-                <button type="sumbit" onclick="register()">Register</button>
+                <button type="sumbit">Register</button>
                 <p>Already have an account? <a href="#" onclick="showform('login-form')">Login</a></p>
             </form>
         </div>
@@ -37,7 +37,7 @@
                 <h2>Login</h2>
                 <input type="email" id="loginEmail" placeholder="Enter Email" required>
                 <input type="password" id="loginPassword" placeholder="Enter Password" required>
-                <button type="sumbit" onclick="login()">Login</button>
+                <button type="sumbit">Login</button>
                 <p>Don't have an account? <a href="#" onclick="showform('register-form')">Register</a></p>
             </form>
         </div>
