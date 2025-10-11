@@ -28,18 +28,24 @@ const register = () => {
   const contact = document.querySelectorAll('input[name="contact"]')[0].value;
   const emergencyContact = document.querySelectorAll('input[name="contact"]')[1].value;
 
-  // Add to Firestore
+auth.createUserWithEmailAndPassword(email, password)
+.then((userCredential)=>{
+const user = userCredential.user;
 
-  db.collection("users").add({
+//store data in firestore database
+return db.collection("users").add({
     name: name,
     email: email,
     password: password, // ⚠️ only for testing; don’t store plain passwords in real apps
     contact: contact,
     emergencyContact: emergencyContact,
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
-  })
+  });
+
+})
   .then(() => {
     alert("User registered successfully!");
+    window.location.href = "Login.html";
   })
   .catch((error) => {
     alert("Error adding user: " + error.message);
@@ -52,13 +58,8 @@ const login = () => {
   const email = document.getElementById("LoginEmail").value;
   const password = document.getElementById("LoginPassword").value;
 
-  if (!email || !password) {
-    alert("Please fill all fields!");
-    return;
-  }
-
   auth.signInWithEmailAndPassword(email, password)
-    .then((result) => {
+    .then(() => {
       alert("You are logged in successfully!");
       window.location.href = "index.html";
     })
