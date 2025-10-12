@@ -17,17 +17,17 @@
         <img src="Images/logo.png" alt="logo">
     </div>
     <div class="container">
-        <div class="form-box active" id="login-form">
-            <form action="">
+        <div class="form-box active" id="login-box">
+            <form  id="login-form">
                 <h2>Login</h2>
-                <input type="email" id="LoginEmail" placeholder="Enter Email" required>
-                <input type="password" id="LoginPassword" placeholder="Enter Password" required>
-                <button type="sumbit" >Login</button>
+                <input type="email" id="loginEmail" name="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" name= "loginPassword" placeholder="Password" required>
+                <button type="submit" >Login</button>
                 <p>Don't have an account? <a href="#" onclick="showform('register-form')">Register</a></p>
             </form>
         </div>
         <div class="form-box" id="register-form">
-            <form action="">
+            <form id="registerr-form">
                 <h2>Register</h2>
                 <input type="text" name="Name" placeholder="Name" required>
                 <input type="email" name="Email" placeholder="Email" required>
@@ -35,7 +35,7 @@
                 <input type="text" name="contact" placeholder="Contact Number" pattern="(\+91)?[0-9]{10}" required>
                 <input type="tel" name="contact" pattern="(\+91)?[0-9]{10}" placeholder="Emergency Contact Number"
                     required>
-                <button type="sumbit">Register</button>
+                <button type="submit">Register</button>
                 <p>Already have an account? <a href="#" onclick="showform('login-form')">Login</a></p>
             </form>
         </div>
