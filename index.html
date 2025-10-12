@@ -16,28 +16,25 @@
         <div class="logo">
             <img src="Images/logo.png" alt="logo">
         </div>
-        <nav>
-            <ul>
+        <nav >
+            <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="Hospital.html">Hospitals</a></li>
                 <li><a href="first_aid.html">First Aid</a></li>
-                <li><a href="Login.html" class="login">Login</a></li>
-                <li><a href="Register.html" class="register">Register</a></li>
+                <li><a href="Login.html" class="nav-login">Login</a></li>
+                <li><a href="Register.html" class="nav-register">Register</a></li>
             </ul>
+            <!-- Hidden until logged in -->
+            <div id="user-pill">
+                <button id="profileBtn" class="pill">
+                    <span id="pillName">User</span> <span id="pillEmail">email@example.com</span>
+                </button>
+                <button id="logoutBtn">Logout</button>
+            </div>
         </nav>
     </header>
     <div id="sos-area">
         <button id="sosBtn" class="sos">SOS</button>
-    </div>
-
-    <!-- hidden until looged in  -->
-
-    <div id="user-pill">
-        <button id="profileBtn" class="pill">
-            <span id="pillName">User</span>
-            <span id="pillEmail">email@example.com</span>
-        </button>
-        <button id="logoutBtn">Logout</button>
     </div>
     <script src="JavaScript/auth.js"></script>
 </body>
