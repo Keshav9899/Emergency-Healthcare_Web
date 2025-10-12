@@ -3,6 +3,22 @@
 /* for responsiveness*/
 
 @media (max-width: 640px) {
+  nav {
+    gap: 8px;
+  }
+  nav .nav-links {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  #user-pill {
+    flex-wrap: wrap;
+  }
+  #profileBtn.pill, #logoutBtn {
+    width: auto;          /* keep compact in navbar */
+  }
+}
+
+@media (max-width: 640px) {
     #user-pill {
         padding: 0 16px;
     }
@@ -45,6 +61,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -53,9 +70,10 @@ body {
 
 header {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    gap: 50px;
+    padding: 0 20px;
+    gap: 24px;
 }
 
 .logo img {
@@ -64,13 +82,19 @@ header {
     margin: 10px 20px;
 }
 
-nav ul {
+nav {
     display: flex;
     align-items: center;
-    justify-items: space-between;
-    gap: 30px;
-    list-style: none;
+    gap: 16px;
+}
 
+nav .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 nav ul li a {
@@ -91,10 +115,10 @@ nav ul li a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70vh;
+    height: 60vh;
 }
 
-.sos {
+#sosBtn {
 
     background: red;
     color: white;
@@ -110,27 +134,25 @@ nav ul li a:hover {
 
 }
 
-#sos:hover {
+#sosBtn:hover {
     transform: scale(1.1);
 }
 
 #user-pill {
     display: none;
-    text-align: center;
-    margin-top: 24px;
-    font-family: "Poppins", sans-serif;
+    display: none;
+    align-items: center;
+    gap: 10px;
 }
 
 #profileBtn.pill {
-    padding: 10px 18px;
+    padding: 8px 14px;
     border-radius: 999px;
     border: none;
     background: #1a3d7c;
     color: #fff;
     cursor: pointer;
     font-weight: 600;
-    box-shadow: 0 6px 16px rgba(26, 61, 124, 0.25);
-    transition: transform 0.15s ease, background 0.2s ease;
 }
 
 #profileBtn.pill:hover {
@@ -140,15 +162,13 @@ nav ul li a:hover {
 }
 
 #logoutBtn {
-    margin-left: 12px;
-    padding: 10px 16px;
-    border-radius: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
     border: 1px solid #d6d6d6;
-    background: #ffffff;
+    background: #fff;
     color: #1a3d7c;
-    cursor: pointer;
     font-weight: 600;
-    transition: background .2s ease, color .2s ease, border-color .2s ease;
+    cursor: pointer;
 }
 
 #logoutBtn:hover {
