@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Martel+Sans:wght@200;300;400;600;700;800;900&family=Poppins:wght@400;600;700&display=swap');
 
 /* for responsiveness*/
-
 @media (max-width: 640px) {
   nav {
     gap: 8px;
@@ -17,6 +16,7 @@
     width: auto;          /* keep compact in navbar */
   }
 }
+
 
 @media (max-width: 640px) {
     #user-pill {
