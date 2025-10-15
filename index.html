@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emergency-Heathcare_Web</title>
     <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/report.css">
     <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-auth-compat.js"></script>
@@ -33,10 +34,61 @@
             </div>
         </nav>
     </header>
+    
     <div id="sos-area">
-        <button id="sosBtn" class="sos">SOS</button>
+        <button id="sosBtn"  class="sos">SOS</button>
     </div>
+
+    <!--SOS  30s countdown model-->
+<div id="sosModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:9999; align-items:center; justify-content:center;">
+  <div style="background:#fff; width:90%; max-width:420px; border-radius:12px; padding:20px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.2);">
+    <h3 style="margin-bottom:10px;">Confirm Ambulance SOS</h3>
+    <p style="margin-bottom:6px;">Dial ambulance after countdown?</p>
+    <p style="font-size:1.25rem; font-weight:700; margin-bottom:14px;">
+      Sending in <span id="sosCountdown">30</span> sec
+    </p>
+    <div style="display:flex; gap:10px; justify-content:center;">
+      <button id="cancelSosBtn" style="padding:10px 14px;">Cancel</button>
+      <button id="sendNowBtn" style="padding:10px 14px; background:#d32f2f; color:#fff; border:none; border-radius:8px;">Send now</button>
+    </div>
+  </div>
+</div>
+
+<!--Report for someone else-->
+
+<section id="report-others" >
+  <h3>Report Emergency for Someone Else</h3>
+  <form id="report-form">
+    <div style="margin:8px 0;">
+      <label >Location</label>
+      <div >
+        <input type="text" id="reportAddress" placeholder="Address or landmark"  required>
+        <button type="button" id="useMyLocation">Use my location</button>
+      </div>
+      <small id="coordHelper"></small>
+    </div>
+
+    <div >
+      <label >Describe condition</label>
+      <textarea id="reportDesc" rows="3" placeholder="Eg. bike accident, bleeding, unconscious" required ></textarea>
+    </div>
+
+    <div >
+      <label >Your phone (optional)</label>
+      <input type="tel" id="reportPhone" placeholder="+91XXXXXXXXXX" pattern="(\\+\\d{1,3})?[0-9]{10}">
+    </div>
+
+    <div>
+      <button type="submit" id="submitReport" >Notify Services</button>
+      <a id="callAmbulance" href="tel:102" >Call Ambulance</a>
+      <a id="callPolice" href="tel:100" >Call Police</a>
+    </div>
+  </form>
+</section>
+
+
     <script src="JavaScript/auth.js"></script>
+    <script src="JavaScript/script.js"></script>
 </body>
 
 </html>
