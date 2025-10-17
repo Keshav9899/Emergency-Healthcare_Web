@@ -132,14 +132,6 @@
   font-size: 0.85rem;
 }
 
-#callAmbulance, #callPolice{
-    text-decoration: none;
-    color: red;
-}
-#callAmbulance:hover, #callPolice:hover{
-    text-decoration: underline;
-    color: rgb(243, 100, 100);
-}
 
 /* Responsive */
 @media (max-width: 640px) {
