@@ -8,10 +8,10 @@
   if (!sosBtn || !sosModal) return;
 
   let timerId = null;
-  let remaining = 30;
+  let remaining = 15;
 
   function openModal() {
-    remaining = 30;
+    remaining = 15;
     sosCountdown.textContent = String(remaining);
     sosModal.style.display = 'flex';
     timerId = setInterval(() => {
