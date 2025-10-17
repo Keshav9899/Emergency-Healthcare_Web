@@ -13,82 +13,77 @@
 </head>
 
 <body>
-    <header>
-        <div class="logo">
-            <img src="Images/logo.png" alt="logo">
-        </div>
-        <nav >
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="Hospital.html">Hospitals</a></li>
-                <li><a href="first_aid.html">First Aid</a></li>
-                <li><a href="Login.html" class="nav-login">Login</a></li>
-                <li><a href="Register.html" class="nav-register">Register</a></li>
-            </ul>
-            <!-- Hidden until logged in -->
-            <div id="user-pill">
-                <button id="profileBtn" class="pill">
-                    <span id="pillName">User</span> <span id="pillEmail">email@example.com</span>
-                </button>
-                <button id="logoutBtn">Logout</button>
-            </div>
-        </nav>
-    </header>
-    
-    <div id="sos-area">
-        <button id="sosBtn"  class="sos">SOS</button>
+  <header class="header">
+    <div class="logo">
+      <img src="Images/logo.png" alt="logo">
     </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Hospital.html">Hospitals</a></li>
+        <li><a href="first_aid.html">First Aid</a></li>
+        <li><a href="Login.html" class="nav-login">Login</a></li>
+        <li><a href="Register.html" class="nav-register">Register</a></li>
+      </ul>
+      <div id="user-pill" class="user-pill" style="display:none;">
+        <button id="profileBtn" class="pill">
+          <span id="pillName">User</span>
+          <span id="pillEmail">email@example.com</span>
+        </button>
+        <button id="logoutBtn" class="logout-btn">Logout</button>
+      </div>
+    </nav>
+  </header>
 
-    <!--SOS  30s countdown model-->
-<div id="sosModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:9999; align-items:center; justify-content:center;">
-  <div style="background:#fff; width:90%; max-width:420px; border-radius:12px; padding:20px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.2);">
-    <h3 style="margin-bottom:10px;">Confirm Ambulance SOS</h3>
-    <p style="margin-bottom:6px;">Dial ambulance after countdown?</p>
-    <p style="font-size:1.25rem; font-weight:700; margin-bottom:14px;">
-      Sending in <span id="sosCountdown">30</span> sec
-    </p>
-    <div style="display:flex; gap:10px; justify-content:center;">
-      <button id="cancelSosBtn" style="padding:10px 14px;">Cancel</button>
-      <button id="sendNowBtn" style="padding:10px 14px; background:#d32f2f; color:#fff; border:none; border-radius:8px;">Send now</button>
+  <main>
+    <section id="sos-area">
+      <h1 class="hero-title">Emergency Help</h1>
+      <p class="hero-sub">Press SOS to initiate help immediately</p>
+      <button id="sosBtn" class="sos">SOS</button>
+    </section>
+
+    <section id="report-others">
+      <h3>Report Emergency for Someone Else</h3>
+      <form id="report-form">
+        <div class="form-group">
+          <label>Location</label>
+          <div class="input-row">
+            <input type="text" id="reportAddress" placeholder="Address or landmark" required>
+            <button type="button" id="useMyLocation" class="btn-secondary">Use my location</button>
+          </div>
+          <small id="coordHelper"></small>
+        </div>
+
+        <div class="form-group">
+          <label>Describe condition</label>
+          <textarea id="reportDesc" rows="3" placeholder="Eg. bike accident, bleeding, unconscious" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Your phone (optional)</label>
+          <input type="tel" id="reportPhone" placeholder="+91XXXXXXXXXX" pattern="(\+\d{1,3})?[0-9]{10}">
+        </div>
+
+        <button type="submit" id="submitReport" class="btn-primary">Notify Services</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- SOS Modal -->
+  <div id="sosModal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Confirm Ambulance SOS</h3>
+      <p>Dial ambulance after countdown?</p>
+      <p class="countdown-text">Sending in <span id="sosCountdown">15</span> sec</p>
+      <div class="modal-actions">
+        <button id="cancelSosBtn" class="btn-secondary">Cancel</button>
+        <button id="sendNowBtn" class="btn-danger">Send Now</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!--Report for someone else-->
-
-<section id="report-others" >
-  <h3>Report Emergency for Someone Else</h3>
-  <form id="report-form">
-    <div style="margin:8px 0;">
-      <label >Location</label>
-      <div >
-        <input type="text" id="reportAddress" placeholder="Address or landmark"  required>
-        <button type="button" id="useMyLocation">Use my location</button>
-      </div>
-      <small id="coordHelper"></small>
-    </div>
-
-    <div >
-      <label >Describe condition</label>
-      <textarea id="reportDesc" rows="3" placeholder="Eg. bike accident, bleeding, unconscious" required ></textarea>
-    </div>
-
-    <div >
-      <label >Your phone (optional)</label>
-      <input type="tel" id="reportPhone" placeholder="+91XXXXXXXXXX" pattern="(\\+\\d{1,3})?[0-9]{10}">
-    </div>
-
-    <div>
-      <button type="submit" id="submitReport" >Notify Services</button>
-      <a id="callAmbulance" href="tel:102" >Call Ambulance</a>
-      <a id="callPolice" href="tel:100" >Call Police</a>
-    </div>
-  </form>
-</section>
-
-
-    <script src="JavaScript/auth.js"></script>
-    <script src="JavaScript/script.js"></script>
+  <script src="JavaScript/auth.js"></script>
+  <script src="JavaScript/script.js"></script>
 </body>
 
 </html>
