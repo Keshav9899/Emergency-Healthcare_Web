@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>First Aid</title>
+  <link rel="stylesheet" href="CSS/style.css"/>
+  <link rel="stylesheet" href="CSS/report.css"/><!-- optional card styles -->
+  <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
+  <script src="auth.js" defer></script>
+</head>
+<body>
+<header class="header">
+  <div class="logo"><a href="index.html"><img src="Images/logo.png" alt="logo" /></a></div>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Hospital.html">Hospitals</a></li>
+      <li><a href="first_aid.html">First Aid</a></li>
+      <li><a href="Login.html" class="nav-login">Login</a></li>
+      <li><a href="Register.html" class="nav-register">Register</a></li>
+    </ul>
+    <div id="user-pill" style="display:none;">
+      <button id="profileBtn" class="pill"><span id="pillName">User</span> • <span id="pillEmail"></span></button>
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </nav>
+</header>
+
+<main class="container" style="margin:24px 0 56px;">
+  <section class="card" style="padding:20px; margin-bottom:16px;">
+    <h1 style="margin:0 0 8px; color:#183a75;">First Aid Guides</h1>
+    <p style="margin:0; color:#5a6ea8;">Quick, life‑saving steps to follow before professional help arrives.</p>
+  </section>
+
+  <!-- Guides -->
+  <section class="card" style="padding:0;">
+    <details open style="padding:16px 20px; border-bottom:1px solid #ecf1fb;">
+      <summary style="font-weight:700; color:#183a75; cursor:pointer;">Severe bleeding</summary>
+      <ul style="margin:10px 0 0 16px;">
+        <li>Apply firm, direct pressure with a clean cloth for at least 5 minutes.</li>
+        <li>Elevate the injured area if possible; do not remove soaked cloth, add another layer.</li>
+        <li>If bleeding doesn’t stop, use a tourniquet above the wound and call emergency services.</li>
+      </ul>
+    </details>
+
+    <details style="padding:16px 20px; border-bottom:1px solid #ecf1fb;">
+      <summary style="font-weight:700; color:#183a75; cursor:pointer;">Unconscious but breathing</summary>
+      <ul style="margin:10px 0 0 16px;">
+        <li>Place in recovery position on their side, keep airway open.</li>
+        <li>Check breathing regularly; keep warm; do not give food or drink.</li>
+        <li>Call emergency services and monitor until help arrives.</li>
+      </ul>
+    </details>
+
+    <details style="padding:16px 20px;">
+      <summary style="font-weight:700; color:#183a75; cursor:pointer;">Burns</summary>
+      <ul style="margin:10px 0 0 16px;">
+        <li>Cool the burn under running water for 20 minutes.</li>
+        <li>Do not apply ice, butter, or toothpaste; cover loosely with clean cloth.</li>
+        <li>Seek medical help for large/deep burns or if face/hands/genitals are affected.</li>
+      </ul>
+    </details>
+  </section>
+
+  <section class="card" style="padding:16px 20px; margin-top:16px;">
+    <a class="btn btn-primary" href="index.html#sos-area">Need urgent help? Press SOS</a>
+  </section>
+</main>
+</body>
+</html>
