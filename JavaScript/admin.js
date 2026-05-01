@@ -70,11 +70,12 @@ db.collection("ambulances")
             const data = doc.data()
 
             const div = document.createElement('div')
+            const name = data.driverName || "No Name"
 
             div.innerHTML = `
         <div class="card">
         <div class="card-header">
-        <span>Driver: ${data.driverName}</span>
+        <span>Driver: ${name}</span>
         <span class="${data.status === "Available" ? "status available" : "status busy"}">
         ${data.status}
         </span>
@@ -118,7 +119,7 @@ async function assignAmbulance(emergencyId, lat, lng) {
         const ambLat = amb.location?.lat || 0;
         const ambLng = amb.location?.lng || 0;
 
-        if (amb.status === "Available") {
+        if (amb.status === "Available" && amb.location) {
             const dist = getDistance(
                 lat,
                 lng,
@@ -151,8 +152,9 @@ async function assignAmbulance(emergencyId, lat, lng) {
 
 //Map add
 let map = L.map('map').setView([28.6319,77.2090],12); 
-L.titleLayer('https://{s}.title.openstreetmap.org/{z}/{x}/{y}.png',{
-    attribution: '&copy OpenStreetMap contributors'
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
 let ambulanceMarkers = {};
