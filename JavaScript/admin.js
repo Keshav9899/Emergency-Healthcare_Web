@@ -88,9 +88,24 @@ db.collection("ambulances")
     })
 
     async function markComplete(emergencyId){
-        await db.collection("emergencies").doc(emergencyId).update({
+        const emergencyRef = db.collectin("emergencies").doc(emergencyId);
+        const snap = await emergencyRef.get();
+
+        if(!snap.exists) return;
+
+        const data = snap.data();
+        const amublanceId =  data.amublanceId;
+
+        await emergencyRef.update({
             status: "Completed"
         })
+
+        if(ambulanceId){
+            await db.collection("ambulances").doc(ambulanceId).update({
+                status: "Available"
+            })
+        }
+        alert("Emergency Completed & Ambulance Freed!")
     }
     
 function getDistance(lat1, lng1, lat2, lng2) {
