@@ -37,10 +37,17 @@ const googleLogin = async () => {
     } else {
       data = snap.data()
     }
-    if (!data.contact) {
-      window.location.href = "complete_profile.html"
+
+    // Role-based redirect for Google login
+    const role = data.role;
+    if (role === "admin") {
+      window.location.href = "admin.html";
+    } else if (role === "ambulanceDriver") {
+      window.location.href = "driver.html";
+    } else if (!data.contact) {
+      window.location.href = "complete_profile.html";
     } else {
-      window.location.href = 'index.html'
+      window.location.href = "index.html";
     }
   }
   catch (error) {
@@ -63,82 +70,58 @@ const register = () => {
 
  auth.createUserWithEmailAndPassword(email, password)
   .then((userCredential) => {
-
     const user = userCredential.user;
-
     return db.collection("users").doc(user.uid).set({
-      name,
-      email,
-      contact,
-      emergencyContact,
-      role,
+      name, email, contact, emergencyContact, role,
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     })
-    .then(() => user); // 🔥 user forward करो
+    .then(() => user);
   })
-
   .then(async (user) => {
-
     alert("Registration successful!");
-
     if (role === "admin") {
       window.location.href = "admin.html";
-    }
-
-    else if (role === "ambulanceDriver") {
-
+    } else if (role === "ambulanceDriver") {
       await db.collection('ambulances').doc(user.uid).set({
         driverName: name,
         contact: contact,
         location: { lat: 0, lng: 0 },
         status: "Available",
-        userId: user.uid   // ✅ अब काम करेगा
+        userId: user.uid
       });
-
       window.location.href = "driver.html";
-    }
-
-    else {
+    } else {
       window.location.href = "index.html";
     }
-
   })
   .catch((error) => {
     alert(error.message);
   });
 }
+
 // Login
 
 const login = async () => {
-
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
-
   try {
-
     const userCredential = await auth.signInWithEmailAndPassword(email, password);
     const user = userCredential.user;
-
     const snap = await db.collection("users").doc(user.uid).get();
     const role = snap.data().role;
-
     if (role === "ambulanceDriver") {
       window.location.href = "driver.html";
-    }
-    else if (role === "admin") {
+    } else if (role === "admin") {
       window.location.href = "admin.html";
-    }
-    else {
+    } else {
       window.location.href = "index.html";
     }
-
-  }
-  catch (error) {
+  } catch (error) {
     alert(error.message);
   }
-
 };
-// Form submit handlers (Register and Login pages)
+
+// Form submit handlers
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -151,7 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const loginForm = document.getElementById("login-form");
-
   if (loginForm) {
     loginForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -163,8 +145,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const dropdownName = document.getElementById("dropdownName");
     const dropdownEmail = document.getElementById("dropdownEmail");
-    const dropdownPhone = document.getElementById('dropdownPhone')
-    const dropdownEmergency = document.getElementById('dropdownEmergency')
+    const dropdownPhone = document.getElementById('dropdownPhone');
+    const dropdownEmergency = document.getElementById('dropdownEmergency');
     const avatarCircle = document.getElementById("avatarCircle");
     const profileWrapper = document.getElementById("profileWrapper");
     const loginLinks = document.getElementById("loginLinks");
@@ -178,29 +160,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-
       const snap = await db.collection("users").doc(user.uid).get();
       const data = snap.exists ? snap.data() : {};
+      const role = data.role || "";
 
-      if (dropdownName) {
-        dropdownName.textContent = data.name || user.displayName || "User";
+      // FIX: Role-based redirect - admin/driver ko index.html pe nahi rehne dena
+      const currentPage = window.location.pathname;
+      const isIndexPage = currentPage.includes("index") || currentPage.endsWith("/") || currentPage.endsWith(".html") && !currentPage.includes("admin") && !currentPage.includes("driver") && !currentPage.includes("Login") && !currentPage.includes("Register");
+
+      if (role === "admin" && isIndexPage) {
+        window.location.href = "admin.html";
+        return;
+      }
+      if (role === "ambulanceDriver" && isIndexPage) {
+        window.location.href = "driver.html";
+        return;
       }
 
-      if (dropdownEmail) {
-        dropdownEmail.textContent = data.email || user.email || "";
-      }
+      if (dropdownName) dropdownName.textContent = data.name || user.displayName || "User";
+      if (dropdownEmail) dropdownEmail.textContent = data.email || user.email || "";
+      if (dropdownPhone) dropdownPhone.textContent = "phone: " + (data.contact || "Not added");
+      if (dropdownEmergency) dropdownEmergency.textContent = "Emergency: " + (data.emergencyContact || "N/A");
 
-      if (dropdownPhone) {
-        dropdownPhone.textContent = "phone: " + (data.contact ? data.contact : "Not added")
-      }
-
-      if (dropdownEmergency) {
-        dropdownEmergency.textContent = "Emergency: " + (data.emergencyContact || "N/A")
-      }
       if (avatarCircle) {
-        avatarCircle.src =
-          user.photoURL ||
-          "https://ui-avatars.com/api/?name=" + (user.email || "User");
+        avatarCircle.src = user.photoURL ||
+          "https://ui-avatars.com/api/?name=" + encodeURIComponent(data.name || user.email || "User");
       }
 
       if (profileWrapper) profileWrapper.style.display = "block";
@@ -213,41 +197,31 @@ document.addEventListener("DOMContentLoaded", () => {
         };
       }
 
-      /* DROPDOWN TOGGLE */
-
       if (avatarCircle && dropdownMenu) {
-
         avatarCircle.addEventListener("click", (e) => {
           e.stopPropagation();
           dropdownMenu.classList.toggle("show");
         });
-
         document.addEventListener("click", (e) => {
           if (profileWrapper && !profileWrapper.contains(e.target)) {
             dropdownMenu.classList.remove("show");
           }
         });
-
       }
 
     } catch (error) {
       console.error(error);
     }
-
   });
-
 });
 
-//password toggle
+// Password toggle
 
 document.addEventListener("click", (e) => {
   if (!e.target.classList.contains("toggle-password")) return;
-
   const inputId = e.target.dataset.target;
   const input = document.getElementById(inputId);
-
   if (!input) return;
-
   if (input.type === "password") {
     input.type = "text";
     e.target.textContent = "Visibility_off";

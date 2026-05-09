@@ -4,19 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emergency Healthcare | admin</title>
+    <title>Emergency Healthcare | Admin</title>
     <link rel="stylesheet" href="CSS/admin.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
+    <style>
+        /* Quick inline style for logout button - move to admin.css if preferred */
+        #adminLogoutBtn {
+            position: fixed;
+            top: 16px;
+            right: 20px;
+            background: #e53935;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            z-index: 999;
+        }
+        #adminLogoutBtn:hover { background: #b71c1c; }
+    </style>
 </head>
 
 <body>
+    <!-- FIX: Logout button added -->
+    <button id="adminLogoutBtn">Logout</button>
+
     <h2>Live Emergencies</h2>
     <div id="emergencyList"></div>
 
-    <h2>Ambualances</h2>
+    <h2>Ambulances</h2>
     <div id="ambulanceList"></div>
 
     <h2>Live Map</h2>
