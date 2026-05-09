@@ -7,9 +7,30 @@
     <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        #driverLogoutBtn {
+            position: fixed;
+            top: 16px;
+            right: 20px;
+            background: #e53935;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            z-index: 999;
+        }
+        #driverLogoutBtn:hover { background: #b71c1c; }
+    </style>
 </head>
 <body>
+    <!-- FIX: Logout button added -->
+    <button id="driverLogoutBtn">Logout</button>
+
     <h1>Driver Dashboard</h1>
+    <p>Welcome, <strong id="driverName"></strong></p>
 
     <h3>Tracking Status:</h3>
     <p id="status">Waiting for location...</p>
