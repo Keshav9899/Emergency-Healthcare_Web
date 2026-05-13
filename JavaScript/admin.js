@@ -1,3 +1,4 @@
+let currentRoute = null;
 const auth = firebase.auth();
 const db = firebase.firestore();
 
@@ -29,24 +30,34 @@ auth.onAuthStateChanged(async (user) => {
 
 // Emergency List
 db.collection('emergencies')
-.onSnapshot(snapshot => {
+    .onSnapshot(snapshot => {
 
-    const container = document.getElementById('emergencyList');
-    container.innerHTML = "";
+        const container = document.getElementById('emergencyList');
+        container.innerHTML = "";
 
-    const docs = snapshot.docs.sort((a, b) => {
-        return a.data().status === "Pending" ? -1 : 1;
-    });
+        const docs = snapshot.docs.sort((a, b) => {
+            return a.data().status === "Pending" ? -1 : 1;
+        });
 
-    docs.forEach(doc => {
-        const data = doc.data();
-        const lat = data.location?.lat || "N/A";
-        const lng = data.location?.lng || "N/A";
+        docs.forEach(doc => {
+            const data = doc.data();
+            if (data.status === "Completed") {
 
-        const div = document.createElement('div');
-        div.className = "card";
+                if (emergencyMarkers[doc.id]) {
+                    map.removeLayer(emergencyMarkers[doc.id]);
+                    delete emergencyMarkers[doc.id];
+                }
 
-        div.innerHTML = `
+                return;
+            }
+            const lat = data.location?.lat || "N/A";
+            const lng = data.location?.lng || "N/A";
+
+            const div = document.createElement('div');
+            div.className = "card";
+
+
+            div.innerHTML = `
         <div class="card-header">
             <span class="name">${data.name}</span>
             <span class="status ${data.status.toLowerCase()}">${data.status}</span>
@@ -56,14 +67,20 @@ db.collection('emergencies')
             <p>📍 Lat: ${lat}, Lng: ${lng}</p>
         </div>
         <div class="card-actions">
-            <button onclick="assignAmbulance('${doc.id}', ${lat || 0}, ${lng || 0})">Assign</button>
-            <button onclick="markComplete('${doc.id}')">Complete</button>
+        ${data.status === "Pending"
+                    ? `<button onclick="assignAmbulance('${doc.id}', ${lat || 0}, ${lng || 0})">Assign</button>`
+                    : ""
+                }
+        ${data.status !== "Completed"
+                    ? `<button onclick="markComplete('${doc.id}')">Complete</button>`
+                    : ""
+                }
         </div>
         `;
 
-        container.appendChild(div);
+            container.appendChild(div);
+        });
     });
-});
 
 // Ambulance List
 db.collection("ambulances")
@@ -109,7 +126,12 @@ async function markComplete(emergencyId) {
             status: "Available"
         });
     }
+    if (currentRoute) {
+        map.removeControl(currentRoute);
+        currentRoute = null;
+    }
     alert("Emergency Completed & Ambulance Freed!");
+
 }
 
 function getDistance(lat1, lng1, lat2, lng2) {
@@ -142,6 +164,7 @@ async function assignAmbulance(emergencyId, lat, lng) {
                 nearest = { id: doc.id, ...amb };
             }
         }
+
     });
 
     if (!nearest) {
@@ -157,7 +180,13 @@ async function assignAmbulance(emergencyId, lat, lng) {
         status: "Assigned",
         ambulanceId: nearest.id
     });
-
+    showRoute(
+        nearest.location.lat,
+        nearest.location.lng,
+        lat,
+        lng
+    )
+    map.setView([lat,lng], 14);
     alert("Ambulance Assigned!");
 }
 
@@ -172,46 +201,67 @@ let ambulanceMarkers = {};
 let emergencyMarkers = {};
 
 db.collection("ambulances")
-.onSnapshot(snapshot => {
-    snapshot.forEach(doc => {
-        const data = doc.data();
-        const lat = data.location?.lat;
-        const lng = data.location?.lng;
+    .onSnapshot(snapshot => {
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            const lat = data.location?.lat;
+            const lng = data.location?.lng;
 
-        if (!lat || !lng) return;
+            if (!lat || !lng) return;
 
-        if (ambulanceMarkers[doc.id]) {
-            ambulanceMarkers[doc.id].setLatLng([lat, lng]);
-        } else {
-            const marker = L.marker([lat, lng])
-                .addTo(map)
-                .bindPopup(`🚑 ${data.driverName}`);
-            ambulanceMarkers[doc.id] = marker;
-        }
+            if (ambulanceMarkers[doc.id]) {
+                ambulanceMarkers[doc.id].setLatLng([lat, lng]);
+            } else {
+                const marker = L.marker([lat, lng])
+                    .addTo(map)
+                    .bindPopup(`
+                    🚑 ${data.driverName}<br>
+                    Status: ${data.status}
+                    
+                    `);
+                ambulanceMarkers[doc.id] = marker;
+            }
+        });
     });
-});
 
 db.collection("emergencies")
-.onSnapshot(snapshot => {
-    snapshot.forEach(doc => {
-        const data = doc.data();
-        const lat = data.location?.lat;
-        const lng = data.location?.lng;
+    .onSnapshot(snapshot => {
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            const lat = data.location?.lat;
+            const lng = data.location?.lng;
 
-        if (!lat || !lng) return;
+            if (!lat || !lng) return;
 
-        if (emergencyMarkers[doc.id]) {
-            emergencyMarkers[doc.id].setLatLng([lat, lng]);
-        } else {
-            const marker = L.marker([lat, lng], {
-                icon: L.divIcon({
-                    iconUrl: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
-                    iconSize: [32, 32]
+            if (emergencyMarkers[doc.id]) {
+                emergencyMarkers[doc.id].setLatLng([lat, lng]);
+            } else {
+                const marker = L.marker([lat, lng], {
+                    icon: L.icon({
+                        iconUrl: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
+                        iconSize: [32, 32]
+                    })
                 })
-            })
-            .addTo(map)
-            .bindPopup(`🚨 ${data.name}`);
-            emergencyMarkers[doc.id] = marker;
-        }
+                    .addTo(map)
+                    .bindPopup(`🚨 ${data.name}`);
+                emergencyMarkers[doc.id] = marker;
+            }
+        });
     });
-});
+function showRoute(ambLat, ambLng, patientLat, patientLng) {
+    if (currentRoute) {
+        map.removeControl(currentRoute);
+    }
+
+    currentRoute = L.Routing.control({
+        createMarker: () => null,
+        waypoints: [
+            L.latLng(ambLat, ambLng),
+            L.latLng(patientLat, patientLng)
+        ],
+        routeWhileDragging: false,
+        draggableWaypoints: false,
+        addWaypoints: false,
+        show: false
+    }).addTo(map);
+}
