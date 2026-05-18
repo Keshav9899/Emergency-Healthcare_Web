@@ -186,7 +186,7 @@ async function assignAmbulance(emergencyId, lat, lng) {
         lat,
         lng
     )
-    map.setView([lat,lng], 14);
+    map.setView([lat, lng], 14);
     alert("Ambulance Assigned!");
 }
 
@@ -207,10 +207,14 @@ db.collection("ambulances")
             const lat = data.location?.lat;
             const lng = data.location?.lng;
 
-            if (!lat || !lng) return;
+            if (lat === null || lng === null) return;
 
             if (ambulanceMarkers[doc.id]) {
-                ambulanceMarkers[doc.id].setLatLng([lat, lng]);
+                ambulanceMarkers[doc.id]
+                    .setLatLng([lat, lng])
+                    .setPopupContent(`🚑 ${data.driverName}<br>
+                    Status: ${data.status}
+                    `);
             } else {
                 const marker = L.marker([lat, lng])
                     .addTo(map)
@@ -226,42 +230,83 @@ db.collection("ambulances")
 
 db.collection("emergencies")
     .onSnapshot(snapshot => {
-        snapshot.forEach(doc => {
+
+        snapshot.docChanges().forEach(change => {
+
+            const doc = change.doc;
             const data = doc.data();
+
             const lat = data.location?.lat;
             const lng = data.location?.lng;
 
-            if (!lat || !lng) return;
+            // REMOVE marker
+            if (
+                change.type === "removed" ||
+                data.status === "Completed"
+            ) {
 
+                if (emergencyMarkers[doc.id]) {
+                    map.removeLayer(emergencyMarkers[doc.id]);
+                    delete emergencyMarkers[doc.id];
+                }
+
+                return;
+            }
+
+            if (lat == null || lng == null) return;
+
+            // UPDATE marker
             if (emergencyMarkers[doc.id]) {
-                emergencyMarkers[doc.id].setLatLng([lat, lng]);
+
+                emergencyMarkers[doc.id]
+                    .setLatLng([lat, lng]);
+
             } else {
+
                 const marker = L.marker([lat, lng], {
                     icon: L.icon({
-                        iconUrl: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
+                        iconUrl:
+                            "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
                         iconSize: [32, 32]
                     })
                 })
                     .addTo(map)
                     .bindPopup(`🚨 ${data.name}`);
+
                 emergencyMarkers[doc.id] = marker;
             }
         });
     });
 function showRoute(ambLat, ambLng, patientLat, patientLng) {
+
+    // Remove old route completely
     if (currentRoute) {
         map.removeControl(currentRoute);
+        currentRoute = null;
     }
 
     currentRoute = L.Routing.control({
-        createMarker: () => null,
+        router: L.Routing.osrmv1({
+            serviceUrl: 'https://router.project-osrm.org/route/v1'
+        }),
         waypoints: [
             L.latLng(ambLat, ambLng),
             L.latLng(patientLat, patientLng)
         ],
-        routeWhileDragging: false,
-        draggableWaypoints: false,
+
+        lineOptions: {
+            styles: [
+                { color: 'blue', weight: 6 }
+            ]
+        },
+
+        createMarker: () => null,
+
         addWaypoints: false,
-        show: false
+        draggableWaypoints: false,
+        fitSelectedRoutes: true,
+        show: false,
+        routeWhileDragging: false
+
     }).addTo(map);
 }
