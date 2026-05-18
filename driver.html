@@ -1,41 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emergency Healthcare | Driver</title>
+    <link rel="stylesheet" href="CSS/driver.css">
     <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
-    <style>
-        body { font-family: sans-serif; padding: 20px; }
-        #driverLogoutBtn {
-            position: fixed;
-            top: 16px;
-            right: 20px;
-            background: #e53935;
-            color: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            z-index: 999;
-        }
-        #driverLogoutBtn:hover { background: #b71c1c; }
-    </style>
+
 </head>
+
 <body>
-    <!-- FIX: Logout button added -->
-    <button id="driverLogoutBtn">Logout</button>
 
-    <h1>Driver Dashboard</h1>
-    <p>Welcome, <strong id="driverName"></strong></p>
+    <body>
 
-    <h3>Tracking Status:</h3>
-    <p id="status">Waiting for location...</p>
+        <button id="driverLogoutBtn">Logout</button>
 
-    <script src="JavaScript/firebase.js"></script>
-    <script src="JavaScript/driver.js"></script>
+        <div class="dashboard">
+
+            <div class="topbar">
+                <div>
+                    <h1>🚑 Driver Dashboard</h1>
+                    <p>Welcome, <strong id="driverName"></strong></p>
+                </div>
+
+                <div class="status-buttons">
+                    <button id="availableBtn" class="available-btn">
+                        Available
+                    </button>
+
+                    <button id="busyBtn" class="busy-btn">
+                        Busy
+                    </button>
+                </div>
+            </div>
+
+            <div class="info-grid">
+
+                <div class="info-card">
+                    <h3>Live Location</h3>
+                    <p id="status">Waiting for location...</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Distance Left</h3>
+                    <p id="distanceLeft">No Active Emergency</p>
+                </div>
+
+            </div>
+
+            <div id="map"></div>
+
+        </div>
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+        <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+        <script src="JavaScript/firebase.js"></script>
+        <script src="JavaScript/driver.js"></script>
+
+    </body>
 </body>
+
 </html>
